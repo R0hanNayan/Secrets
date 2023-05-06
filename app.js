@@ -1,10 +1,11 @@
 //jshint esversion:6
+require('dotenv').config();
 const express = require('express');
 const bodyParser = require('body-parser');
 const ejs = require('ejs');
 const mongoose = require('mongoose');
 const encrypt = require('mongoose-encryption');
-const connection = mongoose.createConnection("mongodb+srv://rohannayan405:qw36Yes1P5QmwBYT@cluster0.1qehh9x.mongodb.net/usersDB");
+const connection = mongoose.createConnection(`mongodb+srv://rohannayan405:${process.env.MONGO_PASS}@cluster0.1qehh9x.mongodb.net/usersDB`);
 
 const app = express();
 
@@ -14,8 +15,8 @@ const userSchema = new mongoose.Schema({
 });
 
 //Mongoose-Encryption
-const secretKey = "This is a Secret";
-userSchema.plugin(encrypt, {secret: secretKey, encryptedFields: ['password']});
+// const secretKey = "This is a Secret";
+userSchema.plugin(encrypt, {secret: process.env.SECRET_KEY, encryptedFields: ['password']});
 
 const User = connection.model("User", userSchema);
 
