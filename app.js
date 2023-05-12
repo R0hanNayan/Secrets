@@ -151,7 +151,6 @@ app.get("/secrets", (req, res) => {
         res.render("secrets", {usersWithSecrets: foundUsers})
     }).catch(err => console.log(err));
 })
- 
 // POST ROUTES
  
 app.post("/register", (req, res) => {
